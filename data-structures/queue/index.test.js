@@ -81,6 +81,9 @@ test('dequeue should return correct value when queue has multiple elements', () 
   expect(q.dequeue()).toEqual(0);
 });
 
-test('dequue should correctly modify queue structure when queue has multiple elements', () => {
-
+test('dequeue should correctly modify queue structure when queue has multiple elements', () => {
+  [0,1,2,3].forEach(v => q.enqueue(v));
+  q.dequeue();
+  expect(q.head.value).toBe(1);
+  expect(q.tail.value).toBe(3);
 });
