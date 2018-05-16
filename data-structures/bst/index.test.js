@@ -94,4 +94,16 @@ describe('when deleting an element in the BST', () => {
         bst.remove(5);
         expect(bst).toEqual(fillBST([10,3,11,2,7,12,1,2.5,6,8], new BST()));
     });
+
+    it('should correctly remove element if element is root and root has left child', () => {
+        fillBST([10,5,11,2,7,12,1,3,6,8], bst);
+        bst.remove(10);
+        expect(bst).toEqual(fillBST([8,5,11,2,7,12,1,3,6], new BST())); 
+    });
+
+    it('should correctly remove element if element is root and root has NO left child', () => {
+        fillBST([1,2,3,4], bst);
+        bst.remove(1);
+        expect(bst).toEqual(fillBST([2,3,4], new BST())); 
+    });
 });

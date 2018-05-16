@@ -88,16 +88,24 @@ class BST {
     contains(value) {
         if (this.isEmpty()) {
             return false;
-        } else {
-            return _contains(value, this.root);
         }
+        return _contains(value, this.root);
     }
 
     remove(value) {
         if (this.isEmpty()) {
             return;
-        } else {
-            _remove(value, this.root, null);
+        }
+        if (this.root.value === value) {
+            if (!this.root.left) {
+                this.root = this.root.right;
+            } else {
+                this.root.value = _findMax(this.root.left).value;
+                return _remove(this.root.value, this.root.left, this.root);
+            }
+        }
+        else {
+            return _remove(value, this.root, null);
         }
     }
 
