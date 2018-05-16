@@ -44,8 +44,8 @@ const _contains = (value, node) => {
 
 const _findMax = node => {
     let currNode = node;
-    while (currNode) {
-        currNode = node.right;
+    while (currNode.right) {
+        currNode = currNode.right;
     }
     return currNode;
 };
