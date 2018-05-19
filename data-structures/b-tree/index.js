@@ -1,3 +1,5 @@
+// NOTE: IMPLEMENTATION INCOMPLETE!!
+
 class Node {
     constructor(degree) {
         this.values = [];
@@ -27,6 +29,8 @@ class Node {
         return this.values.length < this.degree*2-1;
     }
 }
+
+const _medianSorted = (arr) => arr[Math.floor(arr.length/2)];
 
 const _split = (value, node, parent) => {
     const left = new Node(node.degree),
@@ -69,7 +73,8 @@ const _insert = (value, node, parent, bt) => {
             newRoot.isRoot = true;
             bt.root = _split(value, node, newRoot);
         } else {
-            _split(value, node, parent);
+            node.insert(value);
+            _split(_medianSorted(node.values), node, parent);
         }
     } else { // not is not full and has children
         let childPos = 0;

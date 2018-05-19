@@ -1,4 +1,5 @@
 const { BTree, Node } = require('./index');
+const DEGREE = 2;
 
 const buildTree = (arr, bt) => {
     arr.forEach(v => bt.insert(v));
@@ -22,7 +23,6 @@ test('BTree should be defined', () => {
 });
 
 let bt;
-const DEGREE = 3;
 beforeEach(() => {
     bt = new BTree(DEGREE);
 });
@@ -62,11 +62,21 @@ describe('when inserting nodes into the BTree', () => {
         expect(bt.root).toEqual(testTree());
     });
     it('should correctly split a non-root node', () => {
-        buildTree([10,20,30,40,50,25,5,7,6,9], bt);
-        expect(bt.root.values).toEqual([9,25]);
-        expect(bt.root.children[0].values).toEqual([5,6,7]);
+        buildTree([10,20,30,40,50,25,5,7,6,2], bt);
+        expect(bt.root.values).toEqual([7,25]);
+        expect(bt.root.children[0].values).toEqual([2,5,6]);
         expect(bt.root.children[1].values).toEqual([10,20]);
         expect(bt.root.children[2].values).toEqual([30,40,50]);
-        //expect(bt.root.children[0].values).toEqual([9])
     });
+    // it.only('should do cool stuff', () => {
+    //     const randArr = (len) => {
+    //         let s = new Set();
+    //         let arr = Array.from({length: len}, () => Math.floor(Math.random() * len))
+    //         .map(n => s.add(n));
+    //         s.delete(0);
+    //         return Array.from(s);
+    //     }
+    //     buildTree(randArr(30), bt);
+    //     //expect(bt).toEqual(1);
+    // });
 });
