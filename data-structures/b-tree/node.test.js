@@ -1,4 +1,5 @@
 const { Node } = require('./index');
+const DEGREE = 3;
 
 test('Node should be defined', () => {
     expect(Node).toBeDefined();
@@ -6,7 +7,7 @@ test('Node should be defined', () => {
 
 let n;
 beforeEach(() => {
-    n = new Node();
+    n = new Node(DEGREE);
 });
 
 describe('when instantiating the Node', () => {
@@ -21,8 +22,18 @@ describe('when determining if a Node has children', () => {
         expect(n.hasChildren()).toEqual(false);
     });
     it('should return true when Node has children', () => {
-        n.children.push(new Node());
+        n.children.push(new Node(DEGREE));
         expect(n.hasChildren()).toEqual(true);
+    });
+});
+
+describe('when determining if there is space in the node for a new value', () => {
+    it('should return false if node is full', () => {
+        [,1,2,3,4,5].forEach(v => n.insert(v));
+        expect(n.hasSpace()).toEqual(false);
+    });
+    it('should return true if node is not full', () => {
+        expect(n.hasSpace()).toEqual(true);
     });
 });
 
