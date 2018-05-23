@@ -7,11 +7,56 @@ class AVLNode extends Node {
     }
 }
 
-const _balance = (node) => {
-    const bal = _getHeight(node.left) - _getHeight(node.right);
+const _rotateLeft = node => {
+    const left = node.left;
+    const right = node.right;
+
+    right.left = node;
+    node.right = left;
+
+    _updateHeight(node);
+    _updateHeight(right);
 };
 
-const _getAncestors = (value, arr) => {
+const _rotateRight = node => {
+    const left = node.left;
+    const right = node.right;
+
+    left.right = node;
+    node.left = right;
+
+    _updateHeight(node);
+    _updateHeight(left);
+};
+
+const _balance = (node, val) => {
+    const bal = _getHeight(node.left) - _getHeight(node.right);
+
+    // left left case
+    if (bal > 0 && val < node.left.value) {
+        return _rotateRight(node);
+    }
+    // right right case
+    if (bal < 0 && value > node.right.value) {
+        return _rotateLeft(node);
+    }
+    // left right case
+    if (bal > 0 && val > node.left.value) {
+        // left rotate node.left
+        _rotateLeft(node.left);
+        // rotate right
+        return _rotateRight(node);
+    }
+    // right left case
+    if (bal < 0 && val < node.right.value) {
+        // right rotate right child
+        _rotateRight(node.right);
+        // left rotate
+        return _rotateLeft(node);
+    }
+};
+
+const _getAncestors = (value, node, arr) => {
     if (value === node.value) {
         return [node].concat(arr);
     };
@@ -39,7 +84,7 @@ const _updateHeight = (node) => {
 };
 
 const _getFirstUnbalanced = (nodeArr) => {
-    return nodeArr.find(node => Math.abs(_getHeight(node.left) - _getHeight(node.right) >= 2));
+    return nodeArr.find(node => Math.abs(_getHeight(node.left) - _getHeight(node.right)) >= 2);
 };
 
 class AVL extends BST {
@@ -49,14 +94,17 @@ class AVL extends BST {
 
     add(value) {
         super.add(value);
-        const ancestors = _getAncestors(value);
+        const ancestors = _getAncestors(value, this.root, []);
         ancestors.forEach(_updateHeight);
-        const rootUnbalanced = _getFirstUnbalanced(ancestors);
-        _balance(rootUnbalanced);
+        const unbalancedNode = _getFirstUnbalanced(ancestors);
+        if (unbalancedNode) {
+            _balance(unbalancedNode, value);
+        }
     }
 
     remove(value) {
         super.remove(value);
+        // TODO
         _balance(this.root);
     }
 
