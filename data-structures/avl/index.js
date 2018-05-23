@@ -8,7 +8,7 @@ class AVLNode extends Node {
 }
 
 const _balance = (node) => {
-    
+    const bal = _getHeight(node.left) - _getHeight(node.right);
 };
 
 const _getAncestors = (value, arr) => {

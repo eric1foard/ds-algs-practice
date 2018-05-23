@@ -38,6 +38,12 @@ describe('when inserting elements into the AVL tree', () => {
         fillAVL([5,2,3,4,1], avl);
         expect(avl.contains(1)).toBeTruthy();
     });
+    it('should ensure the tree is balanced after insert when only 1 rotation is required', () => {
+        
+    });
+    it('should ensure the tree is balanced after insert when 2 rotations required', () => {
+
+    });
 });
 
 describe('when removing elements from the AVL tree', () => {
