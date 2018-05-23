@@ -9,18 +9,18 @@ class Node {
     }
 }
 
-const _add = (value, node) => {
+const _add = (value, node, N) => {
     if (value < node.value) {
         if (node.left) {
-            _add(value, node.left);
+            _add(value, node.left, N);
         } else {
-            node.left = new Node(value);
+            node.left = new N(value);
         }
     } else if (value > node.value) {
         if (node.right) {
-            _add(value, node.right);
+            _add(value, node.right, N);
         } else {
-            node.right = new Node(value);
+            node.right = new N(value);
         }
     }
 };
@@ -73,15 +73,16 @@ const _remove = (value, node, parent) => {
 };
 
 class BST {
-    constructor() {
+    constructor(n) {
         this.root = null;
+        this.Node = n || Node;
     }
 
     add(value) {
         if (this.isEmpty()) {
-            this.root = new Node(value);
+            this.root = new this.Node(value);
         } else {
-            _add(value, this.root);
+            _add(value, this.root, this.Node);
         }
     }
 
