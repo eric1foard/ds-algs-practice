@@ -1,6 +1,6 @@
 const { Node, AVL } = require('./index');
 
-describe('AVL Tree', () => {
+describe.skip('AVL Tree', () => {
     test('AVL should be defined', () => {
         expect(AVL).toBeDefined();
     });
@@ -20,7 +20,7 @@ describe('AVL Tree', () => {
     });
     
     describe('when searching for elements in the AVL tree', () => {
-        it.only('should return true when element is in the tree', () => {
+        it('should return true when element is in the tree', () => {
             fillAVL([5,2,3,4,1], avl);
             expect(avl.contains(1)).toBeTruthy();
         });
