@@ -1,6 +1,6 @@
 const { sort } = require('./insertion');
 
-describe.only('insertion sort', () => {
+describe('insertion sort', () => {
     it('should return an empty array when array is empty', () => {
         expect(sort([])).toEqual([]);
     });
